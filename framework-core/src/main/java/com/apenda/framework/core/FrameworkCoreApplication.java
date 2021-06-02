@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author rui.zhou
  **/
 @MapperScan("com.apenda.framework.dao")
-//@ComponentScan("com.cignacmb.ibss")
+@ComponentScan("com.apenda.framework")
 @SpringBootApplication
 public class FrameworkCoreApplication {
 

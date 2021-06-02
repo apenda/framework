@@ -35,7 +35,7 @@
 
 <p style="padding:10px;"  width="90%">
 
-基于springboot+mybatis-plus+drools开发的一套规则引擎技术,前提是已经有部署好的可用的kie-service服务
+基于springboot+mybatis-plus+swagger2开发的一套快速开发框架
 
 </p>
 
