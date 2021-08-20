@@ -1,5 +1,8 @@
 package com.apenda.framework.core.handler;
 
+import com.apenda.framework.common.annotation.Encrypt;
+import com.apenda.framework.common.constant.EncryptTypeEnum;
+import com.apenda.framework.common.util.RsaUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
 /**
@@ -43,8 +47,27 @@ public class HttpReqAdvice implements RequestBodyAdvice {
     @Override
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         try{
+            Field[] fields = parameter.getParameterType().getDeclaredFields();
+            for (Field field : fields) {
+                //1. 字段没有Encrypt注解则跳过
+                Encrypt encrypt = field.getAnnotation(Encrypt.class);
+                if (encrypt == null){
+                    continue;
+                }
+
+                //2. 字段有Encrypt注解并且type为DECRYPT则解密
+                field.setAccessible(true);
+                Object obj = field.get(body);
+                if (obj != null) {
+                    EncryptTypeEnum type = encrypt.type();
+                    if (EncryptTypeEnum.DECRYPT.equals(type)) {
+                        String value = RsaUtil.decrypt(obj.toString());
+                        field.set(body, value);
+                    }
+                }
+            }
             log.info("request data | {}",objectMapper.writeValueAsString(body));
-        }catch(JsonProcessingException e){
+        }catch(Exception e){
             log.warn("request params json process fail",e);
         }
         return body;

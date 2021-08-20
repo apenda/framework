@@ -1,36 +1,40 @@
 package com.apenda.framework.common.data;
 
 /**
+ * 通用错误码
+ *
  * @author rui.zhou
  * @date 2021/05/21 15:05
  */
 public enum CommonMessageCode implements MessageCode{
 
-    RESOURCE_NOT_FOUND(404, "The resource required for this operation does not exist"),
-    UNKNOWN_EXCEPTION(-1, "Unknown system error. Please try again"),
-    SUCCESS(0, "OK"),
-    INSERT_EXCEPTION(10, "Exception occurred when new data was added"),
-    INSERT_BATCH_EXCEPTION(11, "Exception occurred when new data was batch added"),
-    UPDATE_EXCEPTION(20, "Exception occurred when data was updated"),
-    DELETE_EXCEPTION(30, "Exception occurred when data was deleted"),
-    DISABLE_EXCEPTION(31, "Exception occurred when data was disabled"),
-    ENABLE_EXCEPTION(32, "Exception occurred when data was enabled"),
-    SELECT_ONE_EXCEPTION(40, "Exception occurred when single data was gotten"),
-    SELECT_EXCEPTION(41, "Exception occurred when data was gotten"),
-    SELECT_PAGINATION_EXCEPTION(42, "Exception occurred when paging data was gotten"),
-    INVALID_ARGUMENT(50, "invalid argument {0}");
+    /**
+     * 未知系统异常, 请稍后再试
+     */
+    UNKNOWN_EXCEPTION(-1, "未知系统异常, 请稍后再试"),
+    SUCCESS(0, "成功"),
+    INSERT_EXCEPTION(10, "添加新数据时发生异常"),
+    INSERT_BATCH_EXCEPTION(11, "批量添加新数据时发生异常"),
+    UPDATE_EXCEPTION(20, "数据更新时发生异常"),
+    DELETE_EXCEPTION(30, "删除数据时发生异常"),
+    DISABLE_EXCEPTION(31, "禁用数据时发生异常"),
+    ENABLE_EXCEPTION(32, "启用数据时发生异常"),
+    SELECT_ONE_EXCEPTION(40, "获取单个数据时发生异常"),
+    SELECT_EXCEPTION(41, "获取数据时发生异常"),
+    SELECT_PAGINATION_EXCEPTION(42, "获取分页数据时发生异常"),
+    INVALID_ARGUMENT(50, "无效参数{0}");
 
     /**
      * 错误码
      */
-    private int code;
+    private final int code;
 
     /**
      * 描述信息
      */
-    private String message;
+    private final String message;
 
-    private CommonMessageCode(int code, String message) {
+    CommonMessageCode(int code, String message) {
         this.code = code;
         this.message = message;
     }

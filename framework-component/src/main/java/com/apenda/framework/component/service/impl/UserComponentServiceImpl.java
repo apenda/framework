@@ -3,7 +3,7 @@ package com.apenda.framework.component.service.impl;
 import com.apenda.framework.component.service.UserComponentService;
 import com.apenda.framework.dao.entity.User;
 import com.apenda.framework.dao.mapper.UserMapper;
-import com.apenda.framework.web.request.UserRequestDTO;
+import com.apenda.framework.web.request.UserQueryRequest;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -25,14 +25,14 @@ public class UserComponentServiceImpl extends ServiceImpl<UserMapper, User> impl
     private UserMapper userMapper;
 
     @Override
-    public User selectOne(UserRequestDTO userRequest) {
+    public User selectOne(UserQueryRequest userRequest) {
         LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper
                 .eq(User::getId, userRequest.getId()).or()
                 .eq(User::getName, userRequest.getName()).or()
                 .eq(User::getAge, userRequest.getAge()).or()
-                .eq(User::getEmail, userRequest.getEmail());
-        User user = userMapper.selectOne(lambdaQueryWrapper);
-        return user;
+                .eq(User::getEmail, userRequest.getEmail())
+                .last("limit 1");
+        return userMapper.selectOne(lambdaQueryWrapper);
     }
 }

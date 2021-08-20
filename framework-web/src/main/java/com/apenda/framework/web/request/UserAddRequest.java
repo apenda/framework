@@ -2,21 +2,18 @@ package com.apenda.framework.web.request;
 
 import lombok.Data;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
+ * 新增用户
+ *
  * @author rui.zhou
- * @date 2021/06/01 19:33
+ * @date 2021/08/16 10:40
  **/
 @Data
-public class UserRequestDTO {
-    /**
-     * id
-     */
-    private Long id;
+public class UserAddRequest {
 
     /**
      * 名称
@@ -31,9 +28,8 @@ public class UserRequestDTO {
     private Integer age;
 
     /**
-     * 邮箱 以下注解用其一即可
+     * 邮箱
      */
-    @Email
-    @Pattern(message = "email format is incorrect", regexp = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")
+    @Pattern(message = "邮箱格式不正确", regexp = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")
     private String email;
 }

@@ -1,7 +1,7 @@
 package com.apenda.framework.component.service;
 
 import com.apenda.framework.dao.entity.User;
-import com.apenda.framework.web.request.UserRequestDTO;
+import com.apenda.framework.web.request.UserQueryRequest;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -19,5 +19,5 @@ public interface UserComponentService extends IService<User> {
      * @param userRequest
      * @return
      */
-    User selectOne(UserRequestDTO userRequest);
+    User selectOne(UserQueryRequest userRequest);
 }

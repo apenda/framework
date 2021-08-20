@@ -6,13 +6,16 @@
     <resultMap id="BaseResultMap" type="com.apenda.framework.dao.entity.User">
         <id column="id" property="id" />
         <result column="name" property="name" />
+        <result column="phone" property="phone" />
+        <result column="id_card" property="idCard" />
+        <result column="bank_card" property="bankCard" />
         <result column="age" property="age" />
         <result column="email" property="email" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, age, email
+        id, name, phone, id_card, bank_card, age, email
     </sql>
 
 </mapper>

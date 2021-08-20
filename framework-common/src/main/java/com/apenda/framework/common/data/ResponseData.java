@@ -77,6 +77,30 @@ public class ResponseData<T> {
         this.data = data;
     }
 
+    /**
+     * 构造函数
+     */
+    public ResponseData(MessageCode messageCode, T data, Integer count) {
+        this.code = messageCode.getCode();
+        this.message = messageCode.getMessage();
+        this.data = data;
+        this.count = count;
+    }
+
+    /**
+     * 构造函数
+     */
+    public ResponseData(T data, Integer count) {
+        this(CommonMessageCode.SUCCESS, data, count);
+    }
+
+    /**
+     * 构造函数
+     */
+    public ResponseData(T data) {
+        this(CommonMessageCode.SUCCESS, data);
+    }
+
     @JsonIgnore
     public boolean isSuccess() {
         return CommonMessageCode.SUCCESS.getCode() == this.code;

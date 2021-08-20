@@ -1,16 +1,21 @@
 package com.apenda.framework.core.service.impl;
 
-import com.apenda.framework.common.data.CommonMessageCode;
 import com.apenda.framework.common.data.ResponseData;
-import com.apenda.framework.common.util.ObjectUtils;
 import com.apenda.framework.component.service.UserComponentService;
 import com.apenda.framework.core.service.UserService;
 import com.apenda.framework.core.struct.mapper.UserStructMapper;
 import com.apenda.framework.dao.entity.User;
-import com.apenda.framework.web.request.UserRequestDTO;
-import com.apenda.framework.web.response.UserResponseDTO;
-import org.apache.commons.collections4.CollectionUtils;
+import com.apenda.framework.web.dto.UserDTO;
+import com.apenda.framework.web.request.PageBase;
+import com.apenda.framework.web.request.UserAddRequest;
+import com.apenda.framework.web.request.UserQueryRequest;
+import com.apenda.framework.web.request.UserUpdateRequest;
+import com.apenda.framework.web.response.UserResponse;
+import com.apenda.framework.web.dto.UserResponseDTO;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,21 +32,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseData<UserResponseDTO> queryUserById(Long id) {
-        User user = ObjectUtils.defaultIfNull(userComponentService.getById(id), new User());
-        return new ResponseData(CommonMessageCode.SUCCESS, UserStructMapper.INSTANCE.userToUserResponse(user));
+        return new ResponseData<>(UserStructMapper.INSTANCE.userToUserResponse(userComponentService.getById(id)));
     }
 
     @Override
     public ResponseData<List<UserResponseDTO>> queryAllUser() {
-        List<User> userList = userComponentService.list();
-        List<UserResponseDTO> resultList = CollectionUtils.emptyIfNull(userList).stream()
-                .map(UserStructMapper.INSTANCE::userToUserResponse).collect(Collectors.toList());
-        return new ResponseData(CommonMessageCode.SUCCESS,resultList);
+        return new ResponseData<>(userComponentService.list().stream().map(UserStructMapper.INSTANCE::userToUserResponse).collect(Collectors.toList()));
     }
 
     @Override
-    public ResponseData<UserResponseDTO> queryUser(UserRequestDTO userRequest) {
-        User user = ObjectUtils.defaultIfNull(userComponentService.selectOne(userRequest), new User());
-        return new ResponseData(CommonMessageCode.SUCCESS, UserStructMapper.INSTANCE.userToUserResponse(user));
+    public ResponseData<UserResponseDTO> queryUser(UserQueryRequest userRequest) {
+        return new ResponseData<>(UserStructMapper.INSTANCE.userToUserResponse(userComponentService.selectOne(userRequest)));
+    }
+
+    @Override
+    public ResponseData<UserResponse> queryAllUser1() {
+        return new ResponseData<>(new UserResponse(userComponentService.list().stream().map(UserStructMapper.INSTANCE::userToUserDTO).collect(Collectors.toList())));
+    }
+
+    @Override
+    public ResponseData<UserResponse> queryPage(PageBase pageBase) {
+        IPage<User> page = userComponentService.page(new Page<>(pageBase.getCurrent(), pageBase.getSize()));
+        List<UserDTO> collect = page.getRecords().stream().map(UserStructMapper.INSTANCE::userToUserDTO).collect(Collectors.toList());
+        return new ResponseData<>(new UserResponse(collect), (int) page.getSize());
+    }
+
+    @Override
+    public ResponseData<Boolean> addUser(UserAddRequest userAddRequest) {
+        return new ResponseData<>(userComponentService.save(UserStructMapper.INSTANCE.userAddRequestToUser(userAddRequest)));
+    }
+
+    @Override
+    public ResponseData<Boolean> updateUser(UserUpdateRequest userUpdateRequest) {
+        return new ResponseData<>(userComponentService.updateById(UserStructMapper.INSTANCE.userUpdateRequestToUser(userUpdateRequest)));
+    }
+
+    @Override
+    public ResponseData<Boolean> deleteUser(Long id) {
+        return new ResponseData<>(userComponentService.removeById(id));
     }
 }
