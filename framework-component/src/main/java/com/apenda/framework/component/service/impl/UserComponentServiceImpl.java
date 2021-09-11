@@ -4,6 +4,7 @@ import com.apenda.framework.component.service.UserComponentService;
 import com.apenda.framework.dao.entity.User;
 import com.apenda.framework.dao.mapper.UserMapper;
 import com.apenda.framework.web.request.UserQueryRequest;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,14 @@ import javax.annotation.Resource;
  * @date 2021/06/01 15:07
  */
 @Service
+@DS("mysql_2")
 public class UserComponentServiceImpl extends ServiceImpl<UserMapper, User> implements UserComponentService {
 
     @Resource
     private UserMapper userMapper;
 
     @Override
+    @DS("mysql_1")
     public User selectOne(UserQueryRequest userRequest) {
         LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper
@@ -36,3 +39,4 @@ public class UserComponentServiceImpl extends ServiceImpl<UserMapper, User> impl
         return userMapper.selectOne(lambdaQueryWrapper);
     }
 }
+

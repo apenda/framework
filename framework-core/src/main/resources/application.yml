@@ -5,10 +5,21 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://121.5.112.73:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8
-    username: root # ENC(6tTpc328eTQYwI84AqwOVw==)
-    password: 123456 # ENC(SohB6JZQY85UgiL2KGbfNQ==)
+    dynamic:
+      primary: mysql_1 #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        mysql_1:  # 启动参数 ( idea 设置 Program arguments , 服务器可以设置为启动环境变量 ) --mpw.key=密钥
+          url: mpw:rYx+0uytDh7CuBRwqKmepNgj8h8HwlUp14oUOncEJnrbpCB6a/R9t3Z7/fkIijr2NPf8o0nxV0qjAQKb+Km3wI5VbyBB7xKuChtM+5AaCjFxdkQUV0fesg5gbIa0iUnaez4MzSNx5dibBXHNvK9smBQ/LfW0cZ2258CzPxMmRkU=
+          username: mpw:Fb5kA34qJaAkRm4rsA2rhQ==
+          password: mpw:WnpNVn7/v7XPXIr/Cu4SlQ==
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        mysql_2:
+          url: mpw:rYx+0uytDh7CuBRwqKmepHPX31LfwSOOlaezO+r7/YIbwfxJ1FGktUJFiPxrWyHH5ur7MTxcIOeiqrJpXMZ5bzQ1AG6rgeICvmMQ/KLrBM26e4r3ufZqTHz6tKm3RZr4CGT0YHfp1RfAtBz+BcRNxpktuk52rr/RoHT6V00Teow=
+          username: mpw:Fb5kA34qJaAkRm4rsA2rhQ==
+          password: mpw:WnpNVn7/v7XPXIr/Cu4SlQ==
+          driver-class-name: com.mysql.cj.jdbc.Driver
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -35,11 +46,6 @@ mybatis-plus:
       logic-not-delete-value: 1
       # 删除后
       logic-delete-value: 0
-
-#秘钥请配置在启动参数
-jasypt:
-  encryptor:
-    password: erp
 
 # 开启
 swagger:
