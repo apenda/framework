@@ -9,7 +9,7 @@
     springboot快速开发框架模板
   </h4> 
 
-[预 览](http://localhost:8080/swagger-ui.html)   |   [官 网](http://www.XXX.com/)   |  [文档](http://10.142.146.37:8081/rule-engine/ibss-rule-core/tree/master/rule-web/README.md)
+[预 览](http://localhost:8081/framework/swagger-ui.html)   |   [官 网](http://www.XXX.com/)   |  [文档](http://10.142.146.37:8081/rule-engine/ibss-rule-core/tree/master/rule-web/README.md)
 
 
 </div>
