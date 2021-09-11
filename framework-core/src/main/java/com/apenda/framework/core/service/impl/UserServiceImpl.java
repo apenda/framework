@@ -1,5 +1,6 @@
 package com.apenda.framework.core.service.impl;
 
+import com.apenda.framework.common.config.CustomIdGenerator;
 import com.apenda.framework.common.data.ResponseData;
 import com.apenda.framework.component.service.UserComponentService;
 import com.apenda.framework.core.service.UserService;
@@ -28,6 +29,9 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     @Resource
+    private CustomIdGenerator customIdGenerator;
+
+    @Resource
     private UserComponentService userComponentService;
 
     @Override
@@ -47,6 +51,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseData<UserResponse> queryAllUser1() {
+        Number number = customIdGenerator.nextId(new User());
+        System.out.printf(" number = " + number);
         return new ResponseData<>(new UserResponse(userComponentService.list().stream().map(UserStructMapper.INSTANCE::userToUserDTO).collect(Collectors.toList())));
     }
 

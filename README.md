@@ -90,7 +90,7 @@ framework
 │	│
 │	└─response web响应数据封装
 │
-└─ 入口 项目启动成功之后点击上面预览链接预览
+└─ 入口 项目启动成功之后点击上面预览链接预览  idea 设置 Program arguments启动参数 --mpw.key=fb8ca67b6cc5437c
 ```
 
 #### 项目结构说明

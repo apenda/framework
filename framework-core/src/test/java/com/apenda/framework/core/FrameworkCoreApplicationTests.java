@@ -18,8 +18,7 @@ class FrameworkCoreApplicationTests {
 
     @Test
     void contextLoads() {
-        System.err.println("root --> " + encryptor.encrypt("root"));
-        System.err.println("123456 --> " + encryptor.encrypt("123456"));
+        System.err.println("test --> " + encryptor.encrypt("test"));
     }
 
 }

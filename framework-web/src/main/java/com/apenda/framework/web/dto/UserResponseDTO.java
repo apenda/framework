@@ -2,7 +2,10 @@ package com.apenda.framework.web.dto;
 
 import com.apenda.framework.common.annotation.Encrypt;
 import com.apenda.framework.common.constant.FieldEnum;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author rui.zhou
@@ -46,4 +49,20 @@ public class UserResponseDTO {
      */
     @Encrypt(field = FieldEnum.EMAIL)
     private String email;
+
+    /**
+     * 最后更新日期
+     */
+    private Date lastUpdateDate;
+
+    /**
+     * 创建日期
+     */
+    private Date createDate;
+
+    /**
+     * 更新日期
+     */
+    private Date updateDate;
+
 }
