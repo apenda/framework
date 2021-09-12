@@ -1,8 +1,7 @@
 package com.apenda.framework.web.dto;
 
-import com.apenda.framework.common.annotation.Encrypt;
-import com.apenda.framework.common.constant.EncryptTypeEnum;
-import com.apenda.framework.common.constant.FieldEnum;
+import com.apenda.framework.common.annotation.Effect;
+import com.apenda.framework.common.annotation.Sensitive;
 import lombok.Data;
 
 /**
@@ -32,13 +31,12 @@ public class UserDTO {
     /**
      * 身份证
      */
-    @Encrypt(field = FieldEnum.ID_CARD)
+    @Sensitive
     private String idCard;
 
     /**
      * 银行卡
      */
-    @Encrypt(type = EncryptTypeEnum.ENCRYPT)
     private String bankCard;
 
     /**
@@ -49,6 +47,11 @@ public class UserDTO {
     /**
      * 邮箱
      */
-    @Encrypt(field = FieldEnum.EMAIL)
     private String email;
+
+    /**
+     * 脱敏测试
+     */
+    @Effect
+    private UserResponseDTO userResponseDTO;
 }

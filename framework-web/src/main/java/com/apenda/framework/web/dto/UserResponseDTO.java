@@ -1,10 +1,9 @@
 package com.apenda.framework.web.dto;
 
-import com.apenda.framework.common.annotation.Encrypt;
-import com.apenda.framework.common.constant.FieldEnum;
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.apenda.framework.common.annotation.Effect;
+import com.apenda.framework.common.constant.SensitiveType;
+import com.apenda.framework.common.annotation.Sensitive;
 import lombok.Data;
-
 import java.util.Date;
 
 /**
@@ -27,12 +26,14 @@ public class UserResponseDTO {
     /**
      * 手机号
      */
+    @Sensitive(value = SensitiveType.MOBILE)
     private String phone;
 
     /**
      * 身份证
      */
-    private String idCard;
+    @Sensitive
+    public String idCard;
 
     /**
      * 银行卡
@@ -47,7 +48,7 @@ public class UserResponseDTO {
     /**
      * 邮箱
      */
-    @Encrypt(field = FieldEnum.EMAIL)
+    @Sensitive("email")
     private String email;
 
     /**
@@ -64,5 +65,11 @@ public class UserResponseDTO {
      * 更新日期
      */
     private Date updateDate;
+
+    /**
+     * 脱敏测试字段
+     */
+    @Effect
+    private UserDTO userDTO;
 
 }

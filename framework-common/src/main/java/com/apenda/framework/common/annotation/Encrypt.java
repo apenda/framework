@@ -2,7 +2,6 @@ package com.apenda.framework.common.annotation;
 
 
 import com.apenda.framework.common.constant.EncryptTypeEnum;
-import com.apenda.framework.common.constant.FieldEnum;
 import java.lang.annotation.*;
 
 /**
@@ -15,11 +14,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Encrypt {
-
-    /**
-     * 脱敏字段枚举
-     */
-    FieldEnum field() default FieldEnum.ID_CARD;
 
     /**
      * 判断脱敏还是加解密类型

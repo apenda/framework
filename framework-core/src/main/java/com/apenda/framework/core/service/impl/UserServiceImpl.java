@@ -29,9 +29,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private CustomIdGenerator customIdGenerator;
-
-    @Resource
     private UserComponentService userComponentService;
 
     @Override
@@ -41,7 +38,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseData<List<UserResponseDTO>> queryAllUser() {
-        return new ResponseData<>(userComponentService.list().stream().map(UserStructMapper.INSTANCE::userToUserResponse).collect(Collectors.toList()));
+        List<User> list = userComponentService.list();
+        List<UserResponseDTO> collect = list.stream().map(UserStructMapper.INSTANCE::userToUserResponse).collect(Collectors.toList());
+        collect.forEach(userResponseDTO -> userResponseDTO.setUserDTO(UserStructMapper.INSTANCE.UserResponseDTOToUser(userResponseDTO)));
+        return new ResponseData<>(collect);
     }
 
     @Override
@@ -51,9 +51,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseData<UserResponse> queryAllUser1() {
-        Number number = customIdGenerator.nextId(new User());
-        System.out.printf(" number = " + number);
-        return new ResponseData<>(new UserResponse(userComponentService.list().stream().map(UserStructMapper.INSTANCE::userToUserDTO).collect(Collectors.toList())));
+        List<User> list = userComponentService.list();
+        List<UserDTO> collect = list.stream().map(UserStructMapper.INSTANCE::userToUserDTO).collect(Collectors.toList());
+        collect.forEach(userDTO -> userDTO.setUserResponseDTO(UserStructMapper.INSTANCE.userDTOToUserResponse(userDTO)));
+        return new ResponseData<>(new UserResponse(collect));
     }
 
     @Override
