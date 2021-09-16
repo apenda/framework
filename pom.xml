@@ -23,10 +23,12 @@
         <orai18n.version>12.1.0.2.0</orai18n.version>
         <springfox.swagger2>2.9.2</springfox.swagger2>
         <freemarker.version>2.3.31</freemarker.version>
+        <spring.boot.version>2.5.0</spring.boot.version>
         <mybatis.plus.version>3.4.1</mybatis.plus.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
         <commons.lang3.version>3.11</commons.lang3.version>
         <commons.codec.version>1.15</commons.codec.version>
+        <alibaba.nacos.version>0.2.5</alibaba.nacos.version>
         <commons.collections4.version>4.3</commons.collections4.version>
     </properties>
 
@@ -47,6 +49,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>com.apenda</groupId>
                 <artifactId>framework-common</artifactId>
@@ -157,6 +166,11 @@
                 <artifactId>commons-codec</artifactId>
                 <version>${commons.codec.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${alibaba.nacos.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -185,6 +199,21 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
+        <!--<repository>
+            <id>central</id>
+            <name>aliyun maven</name>
+            <url>https://maven.aliyun.com/repository/public/</url>
+            <layout>default</layout>
+            &lt;!&ndash; 是否开启发布版构件下载 &ndash;&gt;
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            &lt;!&ndash; 是否开启快照版构件下载 &ndash;&gt;
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>-->
     </repositories>
 
 </project>

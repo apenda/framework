@@ -1,5 +1,6 @@
 package com.apenda.framework.component.service.impl;
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.apenda.framework.component.service.UserComponentService;
 import com.apenda.framework.dao.entity.User;
 import com.apenda.framework.dao.mapper.UserMapper;
@@ -23,12 +24,16 @@ import javax.annotation.Resource;
 @DS("mysql_2")
 public class UserComponentServiceImpl extends ServiceImpl<UserMapper, User> implements UserComponentService {
 
+    @NacosValue(value = "${useLocalCache:false}", autoRefreshed = true)
+    private boolean useLocalCache;
+
     @Resource
     private UserMapper userMapper;
 
     @Override
     @DS("mysql_1")
     public User selectOne(UserQueryRequest userRequest) {
+        System.out.printf("useLocalCache = " + useLocalCache);
         LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper
                 .eq(User::getId, userRequest.getId()).or()

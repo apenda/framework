@@ -1,10 +1,11 @@
 package com.apenda.framework.common.sensitive;
 
-import java.util.Map;
-import java.util.HashMap;
-import lombok.extern.slf4j.Slf4j;
-import java.util.function.Function;
 import com.apenda.framework.common.constant.SensitiveType;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * 脱敏策略
