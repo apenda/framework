@@ -30,6 +30,9 @@ public class HttpRespAdvice implements ResponseBodyAdvice<Object> {
     @Resource
     ObjectMapper objectMapper;
 
+    @Resource
+    private GlobalSensitiveStrategy globalSensitiveStrategy;
+
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -121,7 +124,7 @@ public class HttpRespAdvice implements ResponseBodyAdvice<Object> {
             return;
         }
         if (sensitive != null) {
-            field.set(data, GlobalSensitiveStrategy.getInstance().sensitive(sensitive.value(), obj.toString()));
+            field.set(data, globalSensitiveStrategy.sensitive(sensitive.value(), obj.toString()));
         }
 
         // 注解为 Valid 对当前对象里面的字段递归脱敏

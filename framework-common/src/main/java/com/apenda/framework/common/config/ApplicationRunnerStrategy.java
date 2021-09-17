@@ -1,10 +1,9 @@
 package com.apenda.framework.common.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.ApplicationArguments;
-import com.apenda.framework.common.sensitive.GlobalSensitiveStrategy;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
 
 /**
  * 初始化
@@ -18,9 +17,6 @@ public class ApplicationRunnerStrategy implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        GlobalSensitiveStrategy.getInstance().init();
-        String sensitive = GlobalSensitiveStrategy.getInstance().sensitive("idCard", "440182198012163035");
-        log.info("idCard | {}", sensitive);
     }
 
 }

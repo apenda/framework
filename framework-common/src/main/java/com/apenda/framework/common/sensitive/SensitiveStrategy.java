@@ -1,6 +1,6 @@
 package com.apenda.framework.common.sensitive;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * 字段脱敏策略
@@ -24,8 +24,8 @@ public interface SensitiveStrategy {
      *
      * @param name 策略
      * @param function 策略实现
-     * @return
+     * @return SensitiveStrategy
      */
-    SensitiveStrategy addStrategy(String name, Function<String, String> function);
+    SensitiveStrategy addStrategy(String name, UnaryOperator<String> function);
 
 }

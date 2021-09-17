@@ -3,10 +3,6 @@ server:
   servlet:
     context-path: /framework
 
-nacos:
-  config:
-    server-addr: 121.5.112.73:8848
-
 spring:
   datasource:
     dynamic:
@@ -50,6 +46,7 @@ mybatis-plus:
       logic-not-delete-value: 1
       # 删除后
       logic-delete-value: 0
+    banner: false #关闭控制台LOGO
 
 # 开启
 swagger:
