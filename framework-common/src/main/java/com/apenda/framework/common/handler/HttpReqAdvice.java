@@ -64,7 +64,7 @@ public class HttpReqAdvice implements RequestBodyAdvice {
                     }
                 }
             }
-            log.info("request data | {}",objectMapper.writeValueAsString(body));
+            //log.info("request data | {}",objectMapper.writeValueAsString(body));
         }catch(Exception e){
             log.warn("request params json process fail",e);
         }

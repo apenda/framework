@@ -65,7 +65,7 @@ public class HttpRespAdvice implements ResponseBodyAdvice<Object> {
                 }
 
                 //2. 打印响应日志
-                log.info("response data | {}", objectMapper.writeValueAsString(body));
+                //log.info("response | {}", objectMapper.writeValueAsString(body));
             }catch(Exception e){
                 log.warn("response data json process fail",e);
             }
