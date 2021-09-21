@@ -1,7 +1,7 @@
 package com.apenda.framework.core.service.impl;
 
-import com.apenda.framework.common.config.CustomIdGenerator;
 import com.apenda.framework.common.data.ResponseData;
+import com.apenda.framework.common.log.RecordLogger;
 import com.apenda.framework.component.service.UserComponentService;
 import com.apenda.framework.core.service.UserService;
 import com.apenda.framework.core.struct.mapper.UserStructMapper;
@@ -15,8 +15,9 @@ import com.apenda.framework.web.response.UserResponse;
 import com.apenda.framework.web.dto.UserResponseDTO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.event.Level;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,14 +26,27 @@ import java.util.stream.Collectors;
  * @author rui.zhou
  * @date 2021/06/01 19:42
  **/
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Resource
+    private RecordLogger recordLogger;
 
     @Resource
     private UserComponentService userComponentService;
 
     @Override
     public ResponseData<UserResponseDTO> queryUserById(Long id) {
+
+        //1. 打印日志demo
+        recordLogger.recordLog(Level.INFO, "this is info record");
+        recordLogger.recordLog(Level.INFO, "INFO | {}", "record");
+        recordLogger.recordLog(Level.DEBUG, "DEBUG | {}", "record");
+        recordLogger.recordLog(Level.WARN, "WARN | {}", "record");
+        recordLogger.recordLog(Level.TRACE, "TRACE | {}", "record");
+        recordLogger.recordLog(Level.ERROR, "ERROR | {}", "record");
+
         return new ResponseData<>(UserStructMapper.INSTANCE.userToUserResponse(userComponentService.getById(id)));
     }
 

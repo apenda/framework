@@ -1,4 +1,4 @@
-package com.apenda.framework.common.data;
+package com.apenda.framework.common.log;
 
 import lombok.Data;
 

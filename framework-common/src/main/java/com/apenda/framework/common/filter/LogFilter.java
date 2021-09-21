@@ -1,12 +1,10 @@
 package com.apenda.framework.common.filter;
 
-import com.apenda.framework.common.data.LogBody;
+import com.apenda.framework.common.log.LogBody;
 import lombok.extern.slf4j.Slf4j;
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import static com.apenda.framework.common.util.LogContext.*;
 
 /**
  * 用切面代替
@@ -31,7 +29,7 @@ public class LogFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest)servletRequest;
         LogBody logBody = new LogBody();
         logBody.setUrl(httpRequest.getRequestURI());
-        set(logBody);
+        //set(logBody);
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

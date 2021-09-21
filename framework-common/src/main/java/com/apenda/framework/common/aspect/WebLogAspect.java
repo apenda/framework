@@ -1,6 +1,8 @@
 package com.apenda.framework.common.aspect;
 
 import com.alibaba.fastjson.JSON;
+import com.apenda.framework.common.log.RecordData;
+import com.apenda.framework.common.log.RecordLogger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -9,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 日志切面
@@ -23,11 +27,13 @@ public class WebLogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
 
+    @Resource
+    private RecordLogger recordLogger;
+
     /**
      * 切点
-     * */
+     */
     @Pointcut("execution(public * com.apenda.framework.core.controller..*.*(..))")
-
     public void webLog() {
         // Do nothing
     }
@@ -72,12 +78,18 @@ public class WebLogAspect {
      *
      * @param proceedingJoinPoint 切点介入
      * @return Object
-     * @throws Throwable 抛异常·
+     * @throws Throwable 抛异常
      */
     @Around("webLog()")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object result = proceedingJoinPoint.proceed();
+        List<RecordData> recordList = recordLogger.getRecord();
+        if (recordList != null) {
+            recordList.forEach(recordLogger::log);
+        }
+        recordLogger.remove();
+
         // 打印出参
         String message = JSON.toJSONString(result);
         logger.info("Response Args  : {}", message);
