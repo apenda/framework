@@ -37,8 +37,8 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
     auto-mapping-behavior: full
-    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   global-config:
     # 逻辑删除配置
